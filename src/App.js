@@ -17,6 +17,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link href='/login'>Login</Nav.Link>
             <Nav.Link href='/register'>Register</Nav.Link>
+            <Nav.Link href='https://github.com/hdminh/client-react-funretro'>Github</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route component={NotFound} />
       </Switch>
+    
     </Router>
   );
 }
