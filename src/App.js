@@ -144,9 +144,6 @@ export default function App() {
       <TopBar />
       <Switch>
         <Route exact path="/" component={Home}/>
-        {/* <Route exact path="/login" component={Login}/>
-        <Route exact path="/signup" component={Signup}/>
-        <Route exact path="/board/:id" component={Board}/> */}
       </Switch>
       </div>
     </Router>

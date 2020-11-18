@@ -126,15 +126,42 @@ const useStyle = makeStyles((theme) => ({
     };
   
     return (
-        <div>
-            <InputContainer type='board' />
-            <div>
-                {data.map((board, index) => {
-                        <List></List>
-                    })
-                }
-            </div>
-        </div>
+      <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle }}>
+      <div
+        className={classes.root}
+        style={{
+          backgroundImage: `url(${backgroundUrl})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <TopBar setOpen={setOpen} />
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="app" type="list" direction="horizontal">
+            {(provided) => (
+              <div
+                className={classes.listContainer}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {data.listIds.map((listId, index) => {
+                  const list = data.lists[listId];
+                  return <List list={list} key={listId} index={index} />;
+                })}
+                <InputContainer type="list" />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <SideMenu
+          setBackgroundUrl={setBackgroundUrl}
+          open={open}
+          setOpen={setOpen}
+        />
+      </div>
+    </StoreApi.Provider>
     );
   }
   
