@@ -1,19 +1,32 @@
 import React from 'react';
-import TopBar from './components/TopBar';
-import { Router, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import './App.css';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import Login from './components/Login'
+import NotFound from './components/NotFound'
+import Register from './components/Register'
+import Dashboard from './components/Dashboard'
+import { Navbar, Nav } from 'react-bootstrap'
 
-export default function App() {
+function App() {
   return (
     <Router>
-      <div>
-      <TopBar />
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/signup" component={Signup}/>
-      </div>
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar.Brand href="/">Funretro</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href='/login'>Login</Nav.Link>
+            <Nav.Link href='/register'>Register</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Switch>
+        <Route exact path="/" component={Dashboard} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route component={NotFound} />
+      </Switch>
     </Router>
   );
 }
+export default App;

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { login } from '../utils/api'
+import { signUp } from '../utils/api'
 import { Form, Button, Container, Nav } from 'react-bootstrap'
 
-export default class Login extends Component {
-
+export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          name: '',
           email: '',
           password: '',
         };
@@ -18,9 +18,10 @@ export default class Login extends Component {
     
 
     handleSubmit(event) {
+        console.log(this.state.name)
         console.log(this.state.email)
         console.log(this.state.password)
-        login(this.state.email, this.state.password)
+        signUp(this.state.name, this.state.email, this.state.password)
         .then(function (res){
             console.log(res)
             localStorage.setItem('token', res.data.token);
@@ -31,32 +32,27 @@ export default class Login extends Component {
         })
         event.preventDefault();
     }
-
     render() {
         return (
             <Container style={{ marginTop: '100px' }}>
                 <Form>
                     <Form.Group controlId="formBasicEmail" style={{ width: '300px' }}>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="text" placeholder="Enter email" name="email" value={this.state.email} onChange={this.onChange}/>
-                        <Form.Text className="text-muted">
-                        
-                        </Form.Text>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter Last Name" name="name" value={this.state.name} onChange={this.onChange}/>
                     </Form.Group>
-
+                    <Form.Group controlId="formBasicEmail" style={{ width: '300px' }}>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="text" placeholder="Enter username" name="email" value={this.state.email} onChange={this.onChange}/>
+                    </Form.Group>
                     <Form.Group controlId="formBasicPassword" style={{ width: '300px' }}>
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
                     </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group>
                     <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                        Submit
+                        Register
                     </Button>
                 </Form>
-                <Nav.Link href="/register">Do not have an account?</Nav.Link>
-
+                <Nav.Link href="/login">Already have an account?</Nav.Link>
             </Container>
         )
     }

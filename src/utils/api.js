@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl = 'https://node-api-minhc.herokuapp.com/';
 
 export const login = async (username, password) => {
-    const url = baseUrl + '/login';
+    const url = baseUrl + 'auth/login';
     const data = {
         email: username,
         password: password
@@ -16,9 +16,10 @@ export const login = async (username, password) => {
   return res;
 };
 
-export const signup = async (username, password) => {
-    const url = baseUrl + '/signup';
+export const signUp = async (name, username, password) => {
+    const url = baseUrl + 'auth/signup';
     const data = {
+        name: name,
         email: username,
         password: password
     }
@@ -30,45 +31,45 @@ export const signup = async (username, password) => {
   return res;
 };
 
-export const getBoards = async (token, user) => {
-    const url = baseUrl + '/board';
+export const getBoards = async () => {
+    const url = baseUrl + 'board';
   const res = await axios.get(url, { 
         headers : {
             'Content-Type': 'application/json',
-            'auth-token': token
+            'auth-token': localStorage.getItem('token')
         }
     });
   return res;
 };
 
-export const addBoard = async (token, data) => {
+export const addBoard = async (data) => {
     const url = baseUrl + '/board';
     const res = await axios.post(url, data, { 
         headers : {
             'Content-Type': 'application/json',
-            'auth-token': token
+            'auth-token': localStorage.getItem('token')
         }
     });
     return res;
 }
 
-export const getListCard = async (token, boardId) => {
+export const getListCard = async (boardId) => {
     const url = baseUrl + "/tag/"+ boardId;
     const res = await axios.get(url, { 
         headers : {
             'Content-Type': 'application/json',
-            'auth-token': token
+            'auth-token': localStorage.getItem('token')
         }
     });
     return res;
 }
 
-export const addCard = async (token, data) => {
+export const addCard = async (data) => {
     const url = baseUrl + '/tag';
     const res = await axios.post(url, data, { 
         headers : {
             'Content-Type': 'application/json',
-            'auth-token': token
+            'auth-token': localStorage.getItem('token')
         }
     });
     return res;
